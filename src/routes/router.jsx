@@ -35,10 +35,6 @@ export const router = createBrowserRouter([
                 element: <Login/>,
             },
             {
-                path: "cart",
-                element: <Cart/>,
-            },
-            {
                 path: "movies",
                 element: <Movies/>,
             },
@@ -113,10 +109,6 @@ export const router = createBrowserRouter([
               {
                 path: "profile",
                 element: <AdminProfile role="admin" />,
-              },
-              {
-                path: "movies",
-                element: <Movies role="admin" />,
               },
               {
                 path: "dashboard",

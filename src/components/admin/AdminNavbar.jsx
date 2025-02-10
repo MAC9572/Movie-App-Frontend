@@ -45,7 +45,7 @@ const AdminNavbar =()=>{
     {/* <!-- Navigation Links --> */}
     <nav className="flex items-center space-x-6">
       <Link to ="/admin" class="hover:bg-gray-700 px-4 py-2 rounded-md">Home</Link>
-      <Link to="/admin/movies" class="hover:bg-gray-700 px-4 py-2 rounded-md">Movies</Link>
+      <Link to="/movies" class="hover:bg-gray-700 px-4 py-2 rounded-md">Movies</Link>
       <a href="/admin/showtimes" class="hover:bg-gray-700 px-4 py-2 rounded-md">Showtimes</a>
       <a href="/admin/users" class="hover:bg-gray-700 px-4 py-2 rounded-md">Users</a>
          {/* Profile Dropdown */}
