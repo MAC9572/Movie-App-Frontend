@@ -1,13 +1,11 @@
 import React, { useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
-import { FooterPage } from '../components/user/footerPage'
-import { useState } from 'react'
+import { FooterPage } from '../components/user/FooterPage'
 import { axiosInstance } from '../config/axiosInstance'
 import AdminNavbar from '../components/admin/AdminNavbar'
 import Navbar from '../components/admin/Navbar'
 import { useSelector ,useDispatch } from 'react-redux'
 import { clearAdmin,saveAdmin } from '../redux/features/adminSlice'
-import { toast } from 'react-toastify'
 
 
 export const AdminLayout=()=> {
