@@ -11,14 +11,14 @@ const Login = ({role}) => {
 
 const user ={
   loginAPI : "/user/login",
-  homepageRoute : "/",
+  profileRoute : "/user/profile",
   signupRoute : "/signup"
 }
 
 if(role =="admin"){
   user.role ="admin"
   user.loginAPI ="/admin/login";
-  user.homepageRoute ="/";
+  user.profileRoute ="/admin/profile";
    user.signupRoute ="/admin/signup"
 }
 
@@ -37,7 +37,7 @@ if(role =="admin"){
       toast.success('Login Success')
       console.log('Response:', response.data);
       // Handle successful login (e.g., redirect or save token)
-      navigate(user.homepageRoute)
+      navigate(user.profileRoute)
     } catch (error) {
       toast.error("Invalid credentials.");
       console.error("Login failed:", error);
