@@ -8,7 +8,7 @@ import MovieDetails from "../pages/user/MovieDetails";
 import ErrorPage from "../pages/shared/ErrorPage";
 import { AdminLayout } from "../layout/AdminLayout";
 import { UserLayout } from "../layout/UserLayout";
-import Screen from "../pages/user/screen";
+import Screen from "../pages/user/Screen";
 import TheaterList from "../pages/shared/TheatreList";
 import AdminProfile from "../pages/admin/Profile";
 import AdminDashboard from "../components/admin/AdminDashboard";
