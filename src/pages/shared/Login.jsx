@@ -10,6 +10,7 @@ const Login = ({role}) => {
   const navigate =useNavigate()
 
 const user ={
+  role:"user",
   loginAPI : "/user/login",
   profileRoute : "/user/profile",
   signupRoute : "/signup"
