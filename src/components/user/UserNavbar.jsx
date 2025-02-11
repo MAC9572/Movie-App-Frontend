@@ -18,12 +18,6 @@ const UserNavbar = () => {
 
   const navigate = useNavigate();
 
-  const clearCookies = () => {
-    // You can clear cookies manually like this using document.cookie
-    document.cookie.split(';').forEach((cookie) => {
-      document.cookie = cookie.trim().replace(/^(.+?)=(.*)$/, '$1=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/');
-    });
-  };
 
   const handleLogout = async () => {
     try {
@@ -31,9 +25,8 @@ const UserNavbar = () => {
             method: "GET",
             url: "/user/logout",
         });
-        clearCookies();
       toast.success("Logged Out Successfully")
-        navigate("/");
+        navigate("/login");
         console.log("response=", response, "Logged out");
     } catch (error) {
         console.log(error);
