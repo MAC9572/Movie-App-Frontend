@@ -1,19 +1,18 @@
 import React, {useEffect } from 'react'
-import { Outlet, useLocation} from 'react-router-dom'
+import { Outlet, useLocation,} from 'react-router-dom'
 import Navbar from '../components/user/Navbar'
 import { FooterPage } from '../components/user/FooterPage'
 import UserNavbar from '../components/user/UserNavbar'
 import { axiosInstance } from '../config/axiosInstance'
 import { useSelector , useDispatch } from 'react-redux'
 import { saveUser , clearUser } from '../redux/features/userSlice'
-import { toast } from 'react-toastify'
-
 
 
 export const UserLayout=()=> {
   const { isUserAuth,userData } = useSelector((state) => state.user);
   const dispatch = useDispatch()
     const location = useLocation()
+
 
     console.log("isUserAuth====", isUserAuth);
 
