@@ -6,28 +6,6 @@ export const RecommendedMovies=()=> {
 
 const[movies, setMovies]=useState([])
 
-const [currentPage, setCurrentPage] = useState(0); // Keeps track of the current page
-  const moviesPerPage = 5; // Number of movies to display per page
-
-  // Function to go to the next page
-  const goToNextPage = () => {
-    if (currentPage < Math.floor(movies.length / moviesPerPage)) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
-
-  // Function to go to the previous page
-  const goToPreviousPage = () => {
-    if (currentPage > 0) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
-
-
-  // Get the current set of movies to display
-  const startIndex = currentPage * moviesPerPage;
-  const selectedMovies = movies.slice(startIndex, startIndex + moviesPerPage);
-
 
   const fetchMovies =async()=>{
     try {
@@ -56,22 +34,6 @@ const [currentPage, setCurrentPage] = useState(0); // Keeps track of the current
             <MovieCard key={movie?._id} movie={movie}/>
         ))}
     </section>
-    <div className="flex justify-between w-full mt-8">
-        <button
-          onClick={goToPreviousPage}
-          disabled={currentPage === 0}
-          className="bg-gray-300 dark:bg-white text-black hover:bg-gray-300 disabled:opacity-50 p-2 btn btn-circle"
-        >
-          ❮
-        </button>
-        <button
-          onClick={goToNextPage}
-          disabled={currentPage === Math.floor(movies.length / moviesPerPage)}
-          className="bg-gray-300 dark:bg-white text-black hover:bg-gray-300 disabled:opacity-50 p-2 btn btn-circle"
-        >
-          ❯
-        </button>
-      </div>
     </div>
   )
 }
