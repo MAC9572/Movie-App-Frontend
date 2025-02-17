@@ -21,7 +21,7 @@ const AdminNavbar =()=>{
             url: "/admin/logout",
         });
         toast.success("Logged Out Successfully")
-        navigate("/");
+        navigate("/admin/login");
         console.log("response=", response, "Logged out");
     } catch (error) {
         console.log(error);
@@ -47,7 +47,7 @@ const AdminNavbar =()=>{
       <Link to ="/admin" class="hover:bg-gray-700 px-4 py-2 rounded-md">Home</Link>
       <Link to="/admin/movies" class="hover:bg-gray-700 px-4 py-2 rounded-md">Movies</Link>
       <a href="/admin/showtimes" class="hover:bg-gray-700 px-4 py-2 rounded-md">Showtimes</a>
-      <a href="/admin/users" class="hover:bg-gray-700 px-4 py-2 rounded-md">Users</a>
+      <Link to="/admin/users" class="hover:bg-gray-700 px-4 py-2 rounded-md">Users</Link>
          {/* Profile Dropdown */}
          <div className="relative">
             <button 

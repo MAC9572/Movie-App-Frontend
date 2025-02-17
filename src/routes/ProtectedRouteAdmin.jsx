@@ -9,12 +9,12 @@ export const ProtectedRouteAdmin = () => {
 
     const navigate = useNavigate();
 
-    useEffect(() => {
+    // useEffect(() => {
     if (!isAdminAuth) {
         navigate("/admin/login");
         return;
     }
-    }, []);
+    // }, []);
 
     return <Outlet />;
 };
