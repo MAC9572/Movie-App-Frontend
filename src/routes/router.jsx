@@ -94,11 +94,11 @@ export const router = createBrowserRouter([
                     },
                     {
                         path: "payment/success",
-                        element: <PaymentSuccess role="user"/>
+                        element: <PaymentSuccess/>
                     },
                     {
                         path: "payment/cancel",
-                        element: <PaymentFailure role="user"/>
+                        element: <PaymentFailure/>
                     },
                 ],
             },
@@ -135,7 +135,15 @@ export const router = createBrowserRouter([
               {
                 path :"users",
                 element :<UserList role ="admin"/>
-              }
+              },
+              {
+                path: "payment/success",
+                element: <PaymentSuccess/>
+            },
+            {
+                path: "payment/cancel",
+                element: <PaymentFailure/>
+            }
             ],
           },
         ],
