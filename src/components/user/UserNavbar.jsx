@@ -26,7 +26,7 @@ const UserNavbar = () => {
             url: "/user/logout",
         });
       toast.success("Logged Out Successfully")
-        navigate("/");
+        navigate("/login");
         console.log("response=", response, "Logged out");
     } catch (error) {
         console.log(error);

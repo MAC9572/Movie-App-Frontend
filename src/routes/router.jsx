@@ -20,6 +20,7 @@ import MovieSchedule from "../pages/shared/MovieSchedule";
 import Cart from "../pages/user/Cart";
 import PaymentSuccess from "../pages/user/PaymentSuccess";
 import PaymentFailure from "../pages/user/PaymentFailure";
+import Showtime from "../pages/admin/Showtime";
 
 
 export const router = createBrowserRouter([
@@ -94,11 +95,11 @@ export const router = createBrowserRouter([
                     },
                     {
                         path: "payment/success",
-                        element: <PaymentSuccess role="user"/>
+                        element: <PaymentSuccess/>
                     },
                     {
                         path: "payment/cancel",
-                        element: <PaymentFailure role="user"/>
+                        element: <PaymentFailure/>
                     },
                 ],
             },
@@ -135,7 +136,15 @@ export const router = createBrowserRouter([
               {
                 path :"users",
                 element :<UserList role ="admin"/>
-              }
+              },
+              {
+                path: "movies",
+                element: <Movies role ="admin"/>,
+            },
+            {
+                path : "showtimes",
+                element :<Showtime/>
+            }
             ],
           },
         ],
