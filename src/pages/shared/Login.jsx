@@ -47,11 +47,11 @@ if(role =="admin"){
   };
 
   const handleGoogleLogin = () => {
-    // Your Google login logic (for example, using Firebase or Google OAuth)
+    toast.warning("Currently Google Login is not available")
     console.log("Logging in with Google");
-    // Implement actual Google login logic here
+  
   };
-
+  
   return (
     <div className="min-h-screen flex items-center justify-center py-12 px-6 bg-slate-300 dark:bg-gray-700">
       <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
