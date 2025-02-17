@@ -12,14 +12,14 @@ const Login = ({role}) => {
 const user ={
   role :"user",
   loginAPI : "/user/login",
-  profilepageRoute : "/user",
+  profilepageRoute : "/user/profile",
   signupRoute : "/signup"
 }
 
 if(role =="admin"){
   user.role ="admin"
   user.loginAPI ="/admin/login";
-  user.profilepageRoute ="/admin";
+  user.profilepageRoute ="/admin/profile";
    user.signupRoute ="/admin/signup"
 }
 
