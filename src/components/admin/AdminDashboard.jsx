@@ -1,120 +1,71 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React from 'react';
+import { useForm, Controller, useFieldArray } from 'react-hook-form';
+import { axiosInstance } from '../../config/axiosInstance';
 
 const AdminDashboard = () => {
-  const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    movie_grade: '',
-    languages: '',
-    duration: '',
-    genre: '',
-    cast: [{ original_name: '', character: '' }], // Start with one empty cast member
-    crew: [{ name: '', crew_position: '' }], // Start with one empty crew member
-    movie_image: null,
+  const { control, handleSubmit, formState: { errors }, setValue } = useForm({
+    defaultValues: {
+      title: '',
+      description: '',
+      movie_grade: '',
+      languages: '',
+      duration: '',
+      genre: '',
+      cast: [{ original_name: '', character: '' }],
+      crew: [{ name: '', crew_position: '' }],
+      movie_image: null,
+    },
   });
 
-  const [error, setError] = useState(null);
-  const [successMessage, setSuccessMessage] = useState(null);
+  const { fields: castFields, append: appendCast, remove: removeCast } = useFieldArray({
+    control,
+    name: 'cast',
+  });
 
-  // Handle input change for the form fields
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
+  const { fields: crewFields, append: appendCrew, remove: removeCrew } = useFieldArray({
+    control,
+    name: 'crew',
+  });
 
-  // Handle change for dynamic cast and crew fields
-  const handleDynamicChange = (e, index, type) => {
-    const { name, value } = e.target;
-    const updatedArray = [...formData[type]];
-    updatedArray[index] = { ...updatedArray[index], [name]: value };
-    setFormData({
-      ...formData,
-      [type]: updatedArray,
-    });
-  };
-
-  // Add new dynamic field for cast or crew
-  const addDynamicField = (type) => {
-    const newItem = type === 'cast' ? { original_name: '', character: '' } : { name: '', crew_position: '' };
-    setFormData({
-      ...formData,
-      [type]: [...formData[type], newItem],
-    });
-  };
-
-  // Remove a dynamic field for cast or crew
-  const removeDynamicField = (index, type) => {
-    const updatedArray = formData[type].filter((_, i) => i !== index);
-    setFormData({
-      ...formData,
-      [type]: updatedArray,
-    });
-  };
-
-  // Handle file input change for the movie image
-  const handleFileChange = (e) => {
-    setFormData({
-      ...formData,
-      movie_image: e.target.files[0],
-    });
-  };
+  const [error, setError] = React.useState(null);
+  const [successMessage, setSuccessMessage] = React.useState(null);
 
   // Handle form submission
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    // Check if all required fields are filled
-    if (
-      !formData.title ||
-      !formData.description ||
-      !formData.movie_grade ||
-      !formData.languages ||
-      !formData.duration ||
-      !formData.genre ||
-      !formData.cast ||
-      !formData.crew ||
-      !formData.movie_image
-    ) {
-      setError('All fields are required');
-      return;
-    }
-
+  const onSubmit = async (data) => {
+    // Create a FormData object to send files and other data
     const formDataToSend = new FormData();
-    formDataToSend.append('title', formData.title);
-    formDataToSend.append('description', formData.description);
-    formDataToSend.append('movie_grade', formData.movie_grade);
-    formDataToSend.append('languages', formData.languages);
-    formDataToSend.append('duration', formData.duration);
-    formDataToSend.append('genre', formData.genre);
-    formDataToSend.append('cast', JSON.stringify(formData.cast));
-    formDataToSend.append('crew', JSON.stringify(formData.crew));
-    formDataToSend.append('movie_image', formData.movie_image);
+    Object.keys(data).forEach((key) => {
+      if (key !== 'movie_image') {
+        formDataToSend.append(key, JSON.stringify(data[key]));
+      } else {
+        formDataToSend.append(key, data[key]);
+      }
+    });
 
     try {
-      const response = await axios.post('/movies/add-movies', formDataToSend, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+      // Use axiosInstance for the POST request
+      const response = await axiosInstance({
+        method: 'POST',
+        url: '/movies/add-movies', // The API endpoint for adding a movie
+        data: formDataToSend, // Send the form data
       });
 
-      setSuccessMessage('Movie added successfully');
-      setFormData({
-        title: '',
-        description: '',
-        movie_grade: '',
-        languages: '',
-        duration: '',
-        genre: '',
-        cast: [{ original_name: '', character: '' }],
-        crew: [{ name: '', crew_position: '' }],
-        movie_image: null,
-      });
-      setError(null);
+      // Handle success response
+      if (response.status === 200) {
+        setSuccessMessage('Movie added successfully');
+        // Optionally reset the form fields
+        setValue('title', '');
+        setValue('description', '');
+        setValue('movie_grade', '');
+        setValue('languages', '');
+        setValue('duration', '');
+        setValue('genre', '');
+        setValue('cast', [{ original_name: '', character: '' }]);
+        setValue('crew', [{ name: '', crew_position: '' }]);
+        setValue('movie_image', null);
+      }
     } catch (error) {
+      // Handle error response
       setError('Error adding movie');
     }
   };
@@ -123,7 +74,7 @@ const AdminDashboard = () => {
     <div className="p-6 flex-1 bg-gray-100 dark:bg-gray-600">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
         {/* Dashboard Summary Cards */}
-        <div className=" bg-gray-800 dark:bg-white text-white dark:text-black p-6 rounded-lg shadow-lg flex items-center justify-between">
+        <div className="bg-gray-800 dark:bg-white text-white dark:text-black p-6 rounded-lg shadow-lg flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-semibold">Total Movies</h2>
             <p className="text-xl text-gray-500">20</p>
@@ -140,99 +91,137 @@ const AdminDashboard = () => {
         {error && <p className="text-red-500">{error}</p>}
         {successMessage && <p className="text-green-500">{successMessage}</p>}
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           {/* Title and Description Fields */}
           <div className="mb-4">
             <label className="block text-sm font-semibold">Title</label>
-            <input
-              type="text"
+            <Controller
               name="title"
-              value={formData.title}
-              onChange={handleChange}
-              className="w-full bg-white p-2 border border-gray-300 rounded-lg"
+              control={control}
+              render={({ field }) => (
+                <input
+                  {...field}
+                  type="text"
+                  className="w-full bg-white p-2 border border-gray-300 rounded-lg"
+                />
+              )}
             />
+            {errors.title && <p className="text-red-500">Title is required</p>}
           </div>
 
           <div className="mb-4">
             <label className="block text-sm font-semibold">Description</label>
-            <textarea
+            <Controller
               name="description"
-              value={formData.description}
-              onChange={handleChange}
-              className="w-full bg-white p-2 border border-gray-300 rounded-lg"
-              rows="4"
+              control={control}
+              render={({ field }) => (
+                <textarea
+                  {...field}
+                  className="w-full bg-white p-2 border border-gray-300 rounded-lg"
+                  rows="4"
+                />
+              )}
             />
+            {errors.description && <p className="text-red-500">Description is required</p>}
           </div>
 
           {/* Movie Grade and Other Fields */}
           <div className="mb-4">
             <label className="block text-sm font-semibold">Movie Grade</label>
-            <input
-              type="text"
+            <Controller
               name="movie_grade"
-              value={formData.movie_grade}
-              onChange={handleChange}
-              className="w-full bg-white p-2 border border-gray-300 rounded-lg"
+              control={control}
+              render={({ field }) => (
+                <input
+                  {...field}
+                  type="text"
+                  className="w-full bg-white p-2 border border-gray-300 rounded-lg"
+                />
+              )}
             />
+            {errors.movie_grade && <p className="text-red-500">Movie Grade is required</p>}
           </div>
 
           <div className="mb-4">
             <label className="block text-sm font-semibold">Languages</label>
-            <input
-              type="text"
+            <Controller
               name="languages"
-              value={formData.languages}
-              onChange={handleChange}
-              className="w-full bg-white p-2 border border-gray-300 rounded-lg"
+              control={control}
+              render={({ field }) => (
+                <input
+                  {...field}
+                  type="text"
+                  className="w-full bg-white p-2 border border-gray-300 rounded-lg"
+                />
+              )}
             />
+            {errors.languages && <p className="text-red-500">Languages are required</p>}
           </div>
 
           <div className="mb-4">
             <label className="block text-sm font-semibold">Duration</label>
-            <input
-              type="text"
+            <Controller
               name="duration"
-              value={formData.duration}
-              onChange={handleChange}
-              className="w-full bg-white p-2 border border-gray-300 rounded-lg"
+              control={control}
+              render={({ field }) => (
+                <input
+                  {...field}
+                  type="text"
+                  className="w-full bg-white p-2 border border-gray-300 rounded-lg"
+                />
+              )}
             />
+            {errors.duration && <p className="text-red-500">Duration is required</p>}
           </div>
 
           <div className="mb-4">
             <label className="block text-sm font-semibold">Genre</label>
-            <input
-              type="text"
+            <Controller
               name="genre"
-              value={formData.genre}
-              onChange={handleChange}
-              className="w-full bg-white p-2 border border-gray-300 rounded-lg"
+              control={control}
+              render={({ field }) => (
+                <input
+                  {...field}
+                  type="text"
+                  className="w-full bg-white p-2 border border-gray-300 rounded-lg"
+                />
+              )}
             />
+            {errors.genre && <p className="text-red-500">Genre is required</p>}
           </div>
 
           {/* Cast Fields */}
           <div className="mb-4">
             <label className="block text-sm font-semibold">Cast</label>
-            {formData.cast.map((castMember, index) => (
-              <div key={index} className="mb-4 flex items-center">
-                <input
-                  type="text"
-                  name="original_name"
-                  value={castMember.original_name}
-                  onChange={(e) => handleDynamicChange(e, index, 'cast')}
-                  placeholder="Original Name"
-                  className="w-full bg-white p-2 border border-gray-300 rounded-lg"
+            {castFields.map((item, index) => (
+              <div key={item.id} className="mb-4 flex items-center">
+                <Controller
+                  name={`cast[${index}].original_name`}
+                  control={control}
+                  render={({ field }) => (
+                    <input
+                      {...field}
+                      type="text"
+                      placeholder="Original Name"
+                      className="w-full bg-white p-2 border border-gray-300 rounded-lg"
+                    />
+                  )}
                 />
-                <input
-                  type="text"
-                  name="character"
-                  value={castMember.character}
-                  onChange={(e) => handleDynamicChange(e, index, 'cast')}
-                  placeholder="Character"
-                  className="w-full bg-white p-2 border border-gray-300 rounded-lg ml-2"
+                <Controller
+                  name={`cast[${index}].character`}
+                  control={control}
+                  render={({ field }) => (
+                    <input
+                      {...field}
+                      type="text"
+                      placeholder="Character"
+                      className="w-full bg-white p-2 border border-gray-300 rounded-lg ml-2"
+                    />
+                  )}
                 />
                 <button
                   type="button"
-                  onClick={() => removeDynamicField(index, 'cast')}
+                  onClick={() => removeCast(index)}
                   className="bg-red-500 text-white px-4 py-2 rounded-lg ml-2"
                 >
                   Remove
@@ -241,7 +230,7 @@ const AdminDashboard = () => {
             ))}
             <button
               type="button"
-              onClick={() => addDynamicField('cast')}
+              onClick={() => appendCast({ original_name: '', character: '' })}
               className="bg-green-500 text-white px-4 py-2 rounded-lg"
             >
               Add Cast Member
@@ -251,27 +240,35 @@ const AdminDashboard = () => {
           {/* Crew Fields */}
           <div className="mb-4">
             <label className="block text-sm font-semibold">Crew</label>
-            {formData.crew.map((crewMember, index) => (
-              <div key={index} className="mb-4 flex items-center">
-                <input
-                  type="text"
-                  name="name"
-                  value={crewMember.name}
-                  onChange={(e) => handleDynamicChange(e, index, 'crew')}
-                  placeholder="Crew Name"
-                  className="w-full bg-white p-2 border border-gray-300 rounded-lg"
+            {crewFields.map((item, index) => (
+              <div key={item.id} className="mb-4 flex items-center">
+                <Controller
+                  name={`crew[${index}].name`}
+                  control={control}
+                  render={({ field }) => (
+                    <input
+                      {...field}
+                      type="text"
+                      placeholder="Crew Name"
+                      className="w-full bg-white p-2 border border-gray-300 rounded-lg"
+                    />
+                  )}
                 />
-                <input
-                  type="text"
-                  name="crew_position"
-                  value={crewMember.crew_position}
-                  onChange={(e) => handleDynamicChange(e, index, 'crew')}
-                  placeholder="Crew Position"
-                  className="w-full bg-white p-2 border border-gray-300 rounded-lg ml-2"
+                <Controller
+                  name={`crew[${index}].crew_position`}
+                  control={control}
+                  render={({ field }) => (
+                    <input
+                      {...field}
+                      type="text"
+                      placeholder="Crew Position"
+                      className="w-full bg-white p-2 border border-gray-300 rounded-lg ml-2"
+                    />
+                  )}
                 />
                 <button
                   type="button"
-                  onClick={() => removeDynamicField(index, 'crew')}
+                  onClick={() => removeCrew(index)}
                   className="bg-red-500 text-white px-4 py-2 rounded-lg ml-2"
                 >
                   Remove
@@ -280,7 +277,7 @@ const AdminDashboard = () => {
             ))}
             <button
               type="button"
-              onClick={() => addDynamicField('crew')}
+              onClick={() => appendCrew({ name: '', crew_position: '' })}
               className="bg-green-500 text-white px-4 py-2 rounded-lg"
             >
               Add Crew Member
@@ -290,11 +287,16 @@ const AdminDashboard = () => {
           {/* Movie Image */}
           <div className="mb-4">
             <label className="block text-sm font-semibold">Movie Image</label>
-            <input
-              type="file"
+            <Controller
               name="movie_image"
-              onChange={handleFileChange}
-              className="w-full p-2 border border-gray-300 rounded-lg"
+              control={control}
+              render={({ field }) => (
+                <input
+                  {...field}
+                  type="file"
+                  className="w-full p-2 border border-gray-300 rounded-lg"
+                />
+              )}
             />
           </div>
 

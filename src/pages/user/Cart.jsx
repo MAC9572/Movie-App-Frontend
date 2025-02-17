@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { axiosInstance } from '../../config/axiosInstance';  // Assuming axiosInstance is already set up
 import { toast } from 'react-toastify';
-import { loadStripe } from "@stripe/stripe-js";
-
+import { loadStripe } from "@stripe/stripe-js";  // Import Stripe's JavaScript library
 
 const Cart = () => {
   // State to hold the cart data
   const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
+  const [stripePromise, setStripePromise] = useState(null);  // Stripe instance
 
   // Fetch cart data when the component mounts
   const fetchCartData = async () => {
@@ -17,9 +16,9 @@ const Cart = () => {
       const response = await axiosInstance({
         method :"GET",
         url :"/cart/get-cart"
-      })// Adjust your API endpoint
-      const cartItems =response.data.cartItems.items
-      console.log(cartItems)
+      }) // Adjust your API endpoint
+      const cartItems = response.data.cartItems.items;
+      console.log(cartItems);
       setCart(cartItems);  // Assuming response data contains cartItems
     } catch (err) {
       setError('Error fetching cart data');
@@ -31,38 +30,10 @@ const Cart = () => {
 
   useEffect(() => {
     fetchCartData();
+    setStripePromise(loadStripe(import.meta.env.VITE_STRIPE_Publishable_key)); // Set your Stripe public key
   }, []); // Empty dependency array to run only on mount
 
-
-  const makePayment = async () => {
-    try {
-      // Load the Stripe library with the public key
-      const stripe = await loadStripe(import.meta.env.VITE_STRIPE_Publishable_key);
-      
-      // Create a checkout session by calling the backend API
-      const session = await axiosInstance({
-        url: "/payment/create-checkout-session",  // API endpoint for creating the checkout session
-        method: "POST",
-        data: { }
-      });
-  
-      console.log(session, "=======session");
-  
-      // Redirect the user to Stripe's checkout page
-      const result = await stripe.redirectToCheckout({
-        sessionId: session?.data?.sessionId,  // Ensure the sessionId is returned from your backend
-      });
-  
-      if (result.error) {
-        console.log(result.error.message);  // Handle any errors with Stripe redirection
-      }
-    } catch (error) {
-      console.error("Error during payment process:", error);
-    }
-  };
-
-
-
+  // Delete item from cart
   const deleteFromCart = async (itemId) => {
     try {
       const response = await axiosInstance({
@@ -71,17 +42,49 @@ const Cart = () => {
       });
       console.log("Item deleted:", response.data.data);
       setCart(response.data.data); 
-      toast.success(`Removed Items from cart.`)
+      toast.success('Removed Items from cart.');
     } catch (err) {
       setError('Error deleting item from cart');
-      toast.error('Error deleting item from cart')
+      toast.error('Error deleting item from cart');
       console.error('Error:', err);
     } finally {
       setLoading(false);
     }
   };
 
-  
+  // Handle Stripe payment
+  const handlePayment = async () => {
+    try {
+      const stripe = await stripePromise;
+      if (!stripe) {
+        console.error("Stripe failed to load");
+        return;
+      }
+
+      const response = await axiosInstance({
+        method: 'POST',
+        url: '/payment/create-checkout-session', // This should call your backend to create a checkout session
+        data: {
+          items: cart, // Send the cart data to backend
+        },
+      });
+
+      const { sessionId } = response.data; // Assuming your backend sends a sessionId
+
+      // Redirect to Stripe Checkout
+      const result = await stripe.redirectToCheckout({
+        sessionId,
+      });
+      if (result.error) {
+        toast.error(result.error.message);
+      }
+
+    } catch (err) {
+      toast.error('Error processing payment');
+      console.error(err);
+    }
+  };
+
   if (loading) {
     return <div className="text-center py-4">Loading cart...</div>;
   }
@@ -109,7 +112,10 @@ const Cart = () => {
             </div>
           ))}
           <div className="mt-6 flex justify-center">
-      <button onClick ={makePayment} className="mt-4 ml-6 px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">Pay Now</button></div>
+            <button onClick={handlePayment} className="mt-4 ml-6 px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">
+              Pay Now
+            </button>
+          </div>
         </div>
       )}
 

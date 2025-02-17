@@ -87,7 +87,7 @@ const Screen = () => {
       <h2 className="text-2xl font-bold text-center mb-2">{screenData.name}</h2>
       <p className="text-center text-gray-600 mb-2">{screenData.screenType}</p>
       <p className="text-center text-gray-600 mb-6">{screenData.location}, {screenData.city}</p>
-      <p className="text-right font-semibold text-xl mb-6">Price : {screenData.price}</p>
+      <p className="text-center font-semibold text-xl mb-6">Price : {screenData.price}</p>
       <div className="flex flex-col items-center">
         {screenData.seats.map((row, rowIndex) => (
           <div key={rowIndex} className="flex mb-4">
