@@ -7,14 +7,14 @@ export const ProtectedRouteAdmin = () => {
     console.log("isadminAuth=====", isAdminAuth);
     // loading
 
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
-    // // useEffect(() => {
-    // if (!isAdminAuth) {
-    //     navigate("/admin/login");
-    //     return;
-    // }
-    // }, []);
+    useEffect(() => {
+    if (!isAdminAuth) {
+        navigate("/admin/login");
+        return;
+    }
+    }, []);
 
     return <Outlet />;
 };
