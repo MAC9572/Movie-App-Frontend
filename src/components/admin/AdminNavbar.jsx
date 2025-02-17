@@ -21,7 +21,7 @@ const AdminNavbar =()=>{
             url: "/admin/logout",
         });
         toast.success("Logged Out Successfully")
-        navigate("/");
+        navigate("/admin/login");
         console.log("response=", response, "Logged out");
     } catch (error) {
         console.log(error);
