@@ -16,7 +16,7 @@ const fetchtheatres =async()=>{
   try{
   const response = await axiosInstance({
     method :"GET",
-    url :`/schedules/get-scheduleAll/${screenId}`
+    url : `/schedules/get-schedule/${screenId}`
   })
   console.log(response)
   setMovieData(response?.data?.data);
