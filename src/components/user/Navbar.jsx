@@ -44,7 +44,7 @@ const Navbar = () => {
           <DarKMode/>
           <Link to ="/" className="font-semibold hover:text-red-500">Home</Link>
           <Link to ="/movies" className="font-semibold hover:text-red-500">Movies</Link>
-          <a href="#about" className="font-semibold hover:text-red-500">About</a>
+          <Link to="/aboutus" className="font-semibold hover:text-red-500">About</Link>
           
           {/* Sign In Button
           <button onClick ={()=>navigate('/signup')}

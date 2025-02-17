@@ -7,11 +7,15 @@ export const FooterPage = () => {
     <div>          
 <footer class="p-4 bg-slate-300 sm:p-6 dark:bg-gray-800">
     <div class="md:flex md:justify-between">
-        <div class="mb-6 md:mb-0">
-                <img src="https://as2.ftcdn.net/jpg/01/16/10/79/1000_F_116107910_M2GjML6trp84n8a7F1SMPVGsYVzAhFhu.jpg" class="mr-3 h-8" alt="FlowBite Logo" />
-                <a href="" target="_blank" rel="noreferrer" class="flex items-center text-red-500 text-2xl">MovieBay
-                </a>
+    <div className="flex items-center space-x-2">
+          <img
+            src="https://as2.ftcdn.net/jpg/01/16/10/79/1000_F_116107910_M2GjML6trp84n8a7F1SMPVGsYVzAhFhu.jpg" // Replace with your logo URL
+            alt="Logo"
+            className="h-10 w-auto sm:h-8 md:h-10"
+          />
+          <span className="text-red-500 text-xl sm:text-lg md:text-xl font-bold">MoviesBay</span>
         </div>
+
         <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
             <div>
                 <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">MOVIES BY GENRE</h2>
@@ -72,7 +76,7 @@ export const FooterPage = () => {
     </div>
     <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
     <div class="sm:flex sm:items-center sm:justify-between">
-        <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2025 <a href="/" class="hover:underline">MovieBay™</a>. All Rights Reserved.
+        <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2025 <Link to="/" class="hover:underline">MoviesBay™</Link>. All Rights Reserved.
         </span>
 {/* 
         <div class="flex justify-center mb-6">
