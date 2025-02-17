@@ -18,6 +18,8 @@ import About from "../pages/shared/About";
 import UserList from "../pages/admin/UsersList";
 import MovieSchedule from "../pages/shared/MovieSchedule";
 import Cart from "../pages/user/Cart";
+import PaymentSuccess from "../pages/user/PaymentSuccess";
+import PaymentFailure from "../pages/user/PaymentFailure";
 
 
 export const router = createBrowserRouter([
@@ -92,7 +94,11 @@ export const router = createBrowserRouter([
                     },
                     {
                         path: "payment/success",
-                        // element: <h2>Payment success</h2>,
+                        element: <PaymentSuccess/>
+                    },
+                    {
+                        path: "payment/cancel",
+                        element: <PaymentFailure/>
                     },
                 ],
             },
