@@ -7,13 +7,13 @@ export const ProtectedRoute = () => {
     console.log("isuserAuth=====", isUserAuth);
     // loading
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
-    // useEffect(() => {
-    if (!isUserAuth) {
-        navigate("/login");
-        return;
-    }
+    // // useEffect(() => {
+    // if (!isUserAuth) {
+    //     navigate("/login");
+    //     return;
+    // }
     // }, []);
 
     return <Outlet />;
