@@ -42,9 +42,9 @@ const Navbar = () => {
         {/* Navbar Links and Sign In Button */}
         <div className="flex items-center space-x-6">
           <DarKMode/>
-          <Link to ="/" className="text-white hover:text-red-500">Home</Link>
-          <Link to ="/movies" className="text-white hover:text-red-500">Movies</Link>
-          <a href="#about" className="text-white hover:text-red-500">About</a>
+          <Link to ="/" className="font-semibold hover:text-red-500">Home</Link>
+          <Link to ="/movies" className="font-semibold hover:text-red-500">Movies</Link>
+          <Link to="/aboutus" className="font-semibold hover:text-red-500">About</Link>
           
           {/* Sign In Button
           <button onClick ={()=>navigate('/signup')}
@@ -71,7 +71,7 @@ const Navbar = () => {
                 >
                   User Login
                 </Link>
-               <Link to = "/admin/login"
+                 <Link to = "/admin/login"
                   className="block px-4 py-2 text-white hover:bg-gray-700"
                   onClick={() => setDropdownOpen(false)}
                 >

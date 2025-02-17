@@ -14,6 +14,11 @@ import AdminProfile from "../pages/admin/Profile";
 import AdminDashboard from "../components/admin/AdminDashboard";
 import { ProtectedRoute } from "./ProtectedRoute";
 import { ProtectedRouteAdmin } from "./ProtectedRouteAdmin";
+import About from "../pages/shared/About";
+import UserList from "../pages/admin/UsersList";
+import MovieSchedule from "../pages/shared/MovieSchedule";
+import Cart from "../pages/user/Cart";
+
 
 export const router = createBrowserRouter([
     {
@@ -34,6 +39,10 @@ export const router = createBrowserRouter([
                 element: <Login/>,
             },
             {
+            path: "aboutus",
+            element: <About/>,
+            },
+            {
                 path: "movies",
                 element: <Movies/>,
             },
@@ -42,12 +51,16 @@ export const router = createBrowserRouter([
                 element: <MovieDetails/>,
             },
             {
-                path: "screens",
+                path: "screens/",
                 element: <Screen/>,
             },
             {
                 path: "theatres",
                 element: <TheaterList/>,
+            },
+            {
+                path: "showtime/:screenId",
+                element: <MovieSchedule/>,
             },
             {
                 element: <ProtectedRoute/>,
@@ -71,7 +84,7 @@ export const router = createBrowserRouter([
                     },
                     {
                         path: "cart",
-                        // element: <Cart />,
+                        element: <Cart/>,
                     },
                     {
                         path: "bookings",
@@ -113,6 +126,10 @@ export const router = createBrowserRouter([
                 path: "dashboard",
                 element: <AdminDashboard role="admin" />,
               },
+              {
+                path :"users",
+                element :<UserList role ="admin"/>
+              }
             ],
           },
         ],

@@ -6,7 +6,7 @@ export const MovieCard=({movie})=>{
   console.log(movie)
   const navigate =useNavigate()
   return (
-    <div className="card bg-gray-800 text-white dark:text-black dark:bg-slate-300 w-full overflow-hidden shadow-lg">
+    <div className="card bg-gray-800 text-white dark:text-black dark:bg-gray-300 w-full overflow-hidden shadow-lg">
     <figure>
       <img
         src={movie?.movie_image}

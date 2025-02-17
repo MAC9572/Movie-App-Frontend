@@ -18,6 +18,7 @@ const UserNavbar = () => {
 
   const navigate = useNavigate();
 
+
   const handleLogout = async () => {
     try {
         const response = await axiosInstance({
@@ -81,12 +82,6 @@ const UserNavbar = () => {
                   className="block px-4 py-2 text-white hover:bg-gray-700"
                 >
                   My Profile
-                </Link>
-                <Link to
-                  ="/edit-profile" 
-                  className="block px-4 py-2 text-white hover:bg-gray-700"
-                >
-                  Edit Profile
                 </Link>
                 <Link to
                   ="/mybookings" 

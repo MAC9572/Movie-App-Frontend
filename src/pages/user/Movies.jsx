@@ -13,7 +13,7 @@ const [movies, isLoading, error] =useFetch("/movies/show-movies")
   <MovieSkeleton/>
   ): (
     <div class="container mx-auto p-4">
-    <div className='flex flex-col items-center justify-start px-20 py-16'>
+    <div className='flex flex-col items-center justify-start px-20 py-16 bg-gray-50 dark:bg-gray-700'>
     <section>
     <h1 className="text-2xl mb-8 font-bold">Movies</h1>
       </section>

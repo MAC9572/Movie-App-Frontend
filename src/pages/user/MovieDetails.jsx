@@ -4,7 +4,6 @@ import { axiosInstance } from '../../config/axiosInstance'
 import CastList from '../../components/user/CastCard'
 import CrewList from '../../components/user/crewCard'
 
-
 const MovieDetails=()=> {
   const params =useParams()
   const {movieId} =params;
@@ -32,12 +31,11 @@ const MovieDetails=()=> {
   
 
 
-
-
   return (
-    <div className="max-w-full mx-auto p-6 bg-slate-100 dark:bg-gray-800 rounded-lg shadow-lg">
+    <div class="container mx-auto p-4">
+    <div className="max-w-full mx-auto p-6 bg-gray-50 dark:bg-gray-700 rounded-lg shadow-lg">
   <section>
-<h2 className="text-3xl text-center font-bold text-black dark:text-slate-400 mb-4">Movie Details</h2>
+<h2 className="text-3xl text-center font-bold text-black dark:text-slate-400 mb-8">Movie Details</h2>
   </section>
 
   <section className="mt-6">
@@ -49,9 +47,9 @@ const MovieDetails=()=> {
         className="w-48 h-72 object-cover rounded-lg shadow-md" 
       />
       <div className="flex flex-col items-center sm:items-start">
-        <p className="text-lg font-semibold text-black dark:text-slate-400">Duration: {movieDetails?.duration}</p>
-        <p className="text-lg font-semibold text-black dark:text-slate-400">Languages: {movieDetails?.languages}</p>
-        <p className="text-lg font-semibold text-black dark:text-slate-400">Genre: {movieDetails?.genre}</p>
+        <p className="text-lg font-semibold text-black dark:text-white">Duration: {movieDetails?.duration}</p>
+        <p className="text-lg font-semibold text-black dark:text-white">Languages: {movieDetails?.languages}</p>
+        <p className="text-lg font-semibold text-black dark:text-white">Genre: {movieDetails?.genre}</p>
       </div>    
     </div>
     <div className="card-actions flex justify-center items-center mt-7">
@@ -75,6 +73,7 @@ const MovieDetails=()=> {
       <CrewList crew={movieDetails?.crew} />
     </section>
   </section>
+</div>
 </div>
   )
 }
