@@ -30,7 +30,7 @@ const Cart = () => {
 
   useEffect(() => {
     fetchCartData();
-    setStripePromise(loadStripe(import.meta.env.VITE_STRIPE_Publishable_key)); // Set your Stripe public key
+    setStripePromise(loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY)); // Set your Stripe public key
   }, []); // Empty dependency array to run only on mount
 
   // Delete item from cart
