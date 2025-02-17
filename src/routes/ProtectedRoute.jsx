@@ -9,12 +9,12 @@ export const ProtectedRoute = () => {
 
     const navigate = useNavigate();
 
-    // useEffect(() => {
+    useEffect(() => {
     if (!isUserAuth) {
         navigate("/login");
         return;
     }
-    // }, []);
+    }, []);
 
     return <Outlet />;
 };
