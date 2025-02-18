@@ -47,7 +47,7 @@ const AdminNavbar =()=>{
       <Link to ="/admin" class="hover:bg-gray-700 px-4 py-2 rounded-md">Home</Link>
       <Link to="/admin/movies" class="hover:bg-gray-700 px-4 py-2 rounded-md">Movies</Link>
       <a href="/admin/showtimes" class="hover:bg-gray-700 px-4 py-2 rounded-md">Showtimes</a>
-      <Link to="/admin/users" class="hover:bg-gray-700 px-4 py-2 rounded-md">Users</Link>
+      <Link to="/admin/registeredusers" class="hover:bg-gray-700 px-4 py-2 rounded-md">Users</Link>
          {/* Profile Dropdown */}
          <div className="relative">
             <button 

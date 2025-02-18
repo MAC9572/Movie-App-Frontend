@@ -134,7 +134,7 @@ export const router = createBrowserRouter([
                 element: <AdminDashboard role="admin" />,
               },
               {
-                path :"users",
+                path :"registeredusers",
                 element :<UserList role ="admin"/>
               },
               {
