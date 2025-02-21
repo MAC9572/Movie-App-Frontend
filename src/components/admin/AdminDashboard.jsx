@@ -71,7 +71,7 @@ const AdminDashboard = () => {
         <div className="bg-gray-800 dark:bg-white text-white dark:text-black p-6 rounded-lg shadow-lg flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-semibold">Total Movies</h2>
-            <p className="text-xl text-gray-500">20</p>
+            <p className="text-xl text-gray-500"> 6 </p>
           </div>
           <span className="text-4xl text-blue-500">🎬</span>
         </div>
