@@ -34,8 +34,15 @@ const AdminDashboard = () => {
       formData.append("genre", data.genre);
   
       // Handling Cast and Crew
-      formData.append("cast", JSON.stringify(data.cast));
-      formData.append("crew", JSON.stringify(data.crew));
+
+      data.cast.forEach((castMember, index) => {
+        formData.append(`cast[${index}].original_name`, castMember.original_name);
+        formData.append(`cast[${index}].character`, castMember.character);
+      });
+      data.crew.forEach((crewMember, index) => {
+        formData.append(`crew[${index}].name`, crewMember.name);
+        formData.append(`crew[${index}].crew_position`, crewMember.crew_position);
+      });
       formData.append("movie_image", data.movie_image[0]);
       
       // Sending data to backend using axiosInstance
@@ -47,14 +54,14 @@ const AdminDashboard = () => {
       console.log(response);
   
       toast.success('Movie added successfully');
-      // Reset form
-      setValue('title', '');
-      setValue('description', '');
-      setValue('movie_grade', '');
-      setValue('languages', '');
-      setValue('duration', '');
-      setValue('genre', '');
-      setValue('movie_image', null);
+      // // Reset form
+      // setValue('title', '');
+      // setValue('description', '');
+      // setValue('movie_grade', '');
+      // setValue('languages', '');
+      // setValue('duration', '');
+      // setValue('genre', '');
+      // setValue('movie_image', null);
   
     } catch (err) {
       console.log(err);
@@ -148,7 +155,7 @@ const AdminDashboard = () => {
           <div className="mb-4">
             <label className="block text-sm font-semibold">Cast</label>
             {castFields.map((item, index) => (
-              <div key={item.id} className="mb-4 flex items-center">
+              <div key={item._id} className="mb-4 flex items-center">
                 <input
                   {...register(`cast[${index}].original_name`)}
                   type="text"
@@ -183,7 +190,7 @@ const AdminDashboard = () => {
           <div className="mb-4">
             <label className="block text-sm font-semibold">Crew</label>
             {crewFields.map((item, index) => (
-              <div key={item.id} className="mb-4 flex items-center">
+              <div key={item._id} className="mb-4 flex items-center">
                 <input
                   {...register(`crew[${index}].name`)}
                   type="text"
