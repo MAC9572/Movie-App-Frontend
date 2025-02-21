@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { axiosInstance } from "../../config/axiosInstance";
+import { MovieSkeleton } from "../../components/shared/Skeleton";
 
 const UsersList = () => {
     const [users, setUsers] = useState([]);
@@ -27,7 +28,7 @@ const UsersList = () => {
     }, []);
 
     return (
-      <div className="w-full mx-auto mt-10 p-6 bg-white dark:bg-gray-800 shadow-lg rounded-lg">
+      <div className="w-full mx-auto mt-10 p-6 bg-white dark:bg-gray-700 shadow-lg rounded-lg mb-10">
       <h2 className="text-2xl font-bold mb-4">Registered Users</h2>
 
     {loading && <p className="text-gray-500">Loading...</p>}

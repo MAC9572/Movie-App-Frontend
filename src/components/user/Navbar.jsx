@@ -1,14 +1,50 @@
-import { useState} from 'react';
-import { Link} from 'react-router-dom';
+import { useState,useEffect} from 'react';
+import { Link, useNavigate} from 'react-router-dom';
 import { DarKMode } from '../shared/DarkMode';
+import { axiosInstance } from '../../config/axiosInstance';
 
 const Navbar = () => {
+  const navigate =useNavigate()
   const [searchQuery, setSearchQuery] = useState("");
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [movies, setMovies] = useState([]);
+  const [filteredMovies, setFilteredMovies] = useState([]);
+ 
+
+const fetchMovies = async()=>{
+  try{
+    const response = await axiosInstance({
+      method :"GET",
+      url :"/movies/show-movies"
+    })
+    const searchData = response.data.data
+    setMovies(searchData)
+    setFilteredMovies(searchData);
+    console.log("Movies feched Successfully", response)
+  }
+  catch(error){
+    console.log("error" , error)
+  }
+}
+useEffect(()=>{
+  fetchMovies()
+},[])
+
 
 
   const handleSearch = (event) => {
-    setSearchQuery(event.target.value);
+    const query =event.target.value
+    setSearchQuery(query);
+
+    // Filter movies based on the search query
+    if (query.trim() === "") {
+      setFilteredMovies(movies);  // If no query, show all movies
+    } else {
+      const filtered = movies.filter((movie) =>
+        movie.title.toLowerCase().includes(query.toLowerCase())
+      );
+      setFilteredMovies(filtered);  // Set filtered movies
+    }
   };
 
   const toggleDropdown = () => {
@@ -80,10 +116,31 @@ const Navbar = () => {
               </div>
             )}
           </div>
-        
         </div>
       </div>
+      {/* Filtered Movie Results */}
+      {searchQuery && filteredMovies.length > 0 && (
+        <div className="bg-gray-800 text-white py-2 mt-2">
+          <ul>
+            {filteredMovies.map((movie) => (
+              <li key={movie._id} 
+              className="px-4 py-2 hover:bg-gray-700">
+                <Link to={`/movieDetails/${movie._id}`}>{movie.title}</Link>
+              </li>
+            ))
+            }
+          </ul>
+        </div>
+      )}
+
+      {/* If no movies found */}
+      {searchQuery && filteredMovies.length === 0 && (
+        <div className="bg-gray-800 text-white py-2 mt-2">
+          <p className="px-4">No movies found</p>
+        </div>
+      )}
     </nav>
+    
   );
 };
 

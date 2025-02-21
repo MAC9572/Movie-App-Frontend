@@ -6,7 +6,7 @@ const CarouselPage =()=> {
   // Set an interval for auto sliding
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentSlide((prevSlide) => (prevSlide === 3 ? 1 : prevSlide + 1));
+      setCurrentSlide((prevSlide) => (prevSlide === 4 ? 1 : prevSlide + 1));
     }, 3000); // Change slide every 3 seconds (3000ms)
 
     // Cleanup the interval on component unmount
@@ -48,6 +48,19 @@ const CarouselPage =()=> {
       >
         <img
           src="https://assets-in.bmscdn.com/promotions/cms/creatives/1738396310426_chennaiwebshowcase1240x300.jpg"
+          className="w-full"
+        />
+        <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+          <a href="#slide2" className="btn btn-circle">❮</a>
+          <a href="#slide1" className="btn btn-circle">❯</a>
+        </div>
+      </div>
+      <div
+        id="slide4"
+        className={`carousel-item relative w-full ${currentSlide === 4 ? 'block' : 'hidden'}`}
+      >
+        <img
+          src="https://assets-in.bmscdn.com/promotions/cms/creatives/1738317111272_cinepolisdesktopcarousel.jpg"
           className="w-full"
         />
         <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">

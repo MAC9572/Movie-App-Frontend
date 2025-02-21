@@ -21,6 +21,7 @@ import Cart from "../pages/user/Cart";
 import PaymentSuccess from "../pages/user/PaymentSuccess";
 import PaymentFailure from "../pages/user/PaymentFailure";
 import Showtime from "../pages/admin/Showtime";
+import Bookings from "../pages/user/Bookings";
 
 
 export const router = createBrowserRouter([
@@ -90,8 +91,8 @@ export const router = createBrowserRouter([
                         element: <Cart/>,
                     },
                     {
-                        path: "bookings",
-                        // element: <h1> orders page</h1>,
+                        path: "mybookings",
+                        element: <Bookings/>
                     },
                     {
                         path: "payment/success",
@@ -144,7 +145,7 @@ export const router = createBrowserRouter([
             {
                 path : "showtimes",
                 element :<Showtime/>
-            }
+            },
             ],
           },
         ],

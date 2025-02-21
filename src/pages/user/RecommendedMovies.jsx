@@ -15,7 +15,7 @@ const[movies, setMovies]=useState([])
         url    :"/movies/show-movies"
       })
       console.log(response)
-      setMovies(response?.data?.data)
+      setMovies(response?.data?.data.slice(0,5))
     }catch(error){
      console.log(error)
     }
