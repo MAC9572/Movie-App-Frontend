@@ -6,7 +6,6 @@ import { toast } from 'react-toastify';
 const Screen = () => {
   const [screenData, setScreenData] = useState(null);
   const [selectedSeats, setSelectedSeats] = useState([]);
-  const [cart, setCart] = useState([]);
   const navigate =useNavigate()
 
   // Fetch screen data from the API
@@ -43,7 +42,7 @@ const Screen = () => {
 
   // Add to cart functionality with POST request
   const addToCart = async () => {
-    if (selectedSeats.length > 0) {
+    if (selectedSeats.length > 0 ) {
       try {
         const cartData = {
           userId: 'userId', // You should pass the user's ID here
@@ -65,7 +64,7 @@ const Screen = () => {
         }
         
         // Reset selected seats after adding to the cart
-        setSelectedSeats([]);
+        // setSelectedSeats([]);
       } catch (error) {
         console.error('Error adding to cart:', error);
         // alert('There was an error adding to the cart.');

@@ -32,7 +32,7 @@ const MovieDetails=()=> {
 
 
   return (
-    <div class="container mx-auto p-4">
+    <div className="container mx-auto p-4">
     <div className="max-w-full mx-auto p-6 bg-gray-50 dark:bg-gray-700 rounded-lg shadow-lg">
   <section>
 <h2 className="text-3xl text-center font-bold text-black dark:text-slate-400 mb-8">Movie Details</h2>

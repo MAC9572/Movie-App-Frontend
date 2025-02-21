@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { Link,useNavigate} from 'react-router-dom';
 import { DarKMode } from '../shared/DarkMode';
 import { axiosInstance } from '../../config/axiosInstance';
@@ -7,10 +7,45 @@ import { toast } from 'react-toastify';
 const UserNavbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [movies, setMovies] = useState([]);
+  const [filteredMovies, setFilteredMovies] = useState([]);
+ 
+const fetchMovies = async()=>{
+  try{
+    const response = await axiosInstance({
+      method :"GET",
+      url :"/movies/show-movies"
+    })
+    const searchData = response.data.data
+    setMovies(searchData)
+    setFilteredMovies(searchData);
+    console.log("Movies feched Successfully", response)
+  }
+  catch(error){
+    console.log("error" , error)
+  }
+}
+useEffect(()=>{
+  fetchMovies()
+},[])
+
+
 
   const handleSearch = (event) => {
-    setSearchQuery(event.target.value);
+    const query =event.target.value
+    setSearchQuery(query);
+
+    // Filter movies based on the search query
+    if (query.trim() === "") {
+      setFilteredMovies(movies);  // If no query, show all movies
+    } else {
+      const filtered = movies.filter((movie) =>
+        movie.title.toLowerCase().includes(query.toLowerCase())
+      );
+      setFilteredMovies(filtered);  // Set filtered movies
+    }
   };
+
 
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
@@ -53,7 +88,7 @@ const UserNavbar = () => {
             value={searchQuery}
             onChange={handleSearch}
             className="w-full px-4 py-2 rounded-lg bg-gray-700 dark:bg-white text-gray-500 focus:outline-none"
-            placeholder="Search for Movies, Events..."
+            placeholder="Search for Movies"
           />
         </div>
 
@@ -84,7 +119,7 @@ const UserNavbar = () => {
                   My Profile
                 </Link>
                 <Link to
-                  ="/mybookings" 
+                  ="/user/mybookings" 
                   className="block px-4 py-2 text-white hover:bg-gray-700"
                 >
                   Bookings
@@ -100,6 +135,25 @@ const UserNavbar = () => {
           </div>
         </div>
       </div>
+        {/* Filtered Movie Results */}
+        {searchQuery && filteredMovies.length > 0 && (
+        <div className="bg-gray-800 text-white py-2 mt-2">
+          <ul>
+            {filteredMovies.map((movie) => (
+              <li key={movie._id} className="px-4 py-2 hover:bg-gray-700">
+                <Link to={`/movieDetails/${movie._id}`}>{movie.title}</Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {/* If no movies found */}
+      {searchQuery && filteredMovies.length === 0 && (
+        <div className="bg-gray-800 text-white py-2 mt-2">
+          <p className="px-4">No movies found</p>
+        </div>
+      )}
     </nav>
   );
 };

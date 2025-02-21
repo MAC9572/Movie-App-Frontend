@@ -57,7 +57,7 @@ const Cart = () => {
     try {
       const stripe = await stripePromise;
       if (!stripe) {
-        console.error("Stripe failed to load");
+        toast.error("Stripe failed to load");
         return;
       }
 
@@ -75,10 +75,10 @@ const Cart = () => {
       const result = await stripe.redirectToCheckout({
         sessionId,
       });
+      
       if (result.error) {
         toast.error(result.error.message);
-      }
-
+      } 
     } catch (err) {
       toast.error('Error processing payment');
       console.error(err);

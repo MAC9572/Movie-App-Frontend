@@ -21,6 +21,8 @@ import Cart from "../pages/user/Cart";
 import PaymentSuccess from "../pages/user/PaymentSuccess";
 import PaymentFailure from "../pages/user/PaymentFailure";
 import Showtime from "../pages/admin/Showtime";
+import Bookings from "../pages/user/Bookings";
+import AdminMovies from "../pages/admin/AdminMovies.jsx";
 
 
 export const router = createBrowserRouter([
@@ -90,8 +92,8 @@ export const router = createBrowserRouter([
                         element: <Cart/>,
                     },
                     {
-                        path: "bookings",
-                        // element: <h1> orders page</h1>,
+                        path: "mybookings",
+                        element: <Bookings/>
                     },
                     {
                         path: "payment/success",
@@ -134,17 +136,17 @@ export const router = createBrowserRouter([
                 element: <AdminDashboard role="admin" />,
               },
               {
-                path :"users",
+                path :"registeredusers",
                 element :<UserList role ="admin"/>
               },
               {
                 path: "movies",
-                element: <Movies role ="admin"/>,
+                element: <AdminMovies role ="admin"/>,
             },
             {
                 path : "showtimes",
-                element :<Showtime/>
-            }
+                element :<Showtime role ="admin"/>
+            },
             ],
           },
         ],
