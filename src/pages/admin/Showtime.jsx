@@ -30,7 +30,7 @@ const fetchtheatres =async()=>{
 
   return (
 
-    <div className="p-6 bg-gray-100 min-h-screen dark:bg-gray-800">
+    <div className="p-6 bg-gray-100 min-h-screen dark:bg-gray-700">
     <h1 className="text-3xl font-semibold text-center mb-10">Movie Schedules</h1>
     <div className="space-y-6">
       {movieData.map((movie) => (
