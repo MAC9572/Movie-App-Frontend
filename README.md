@@ -5,8 +5,6 @@ Welcome to [MoviesBay](https://movie-app-frontend-ashy.vercel.app/), your ultima
 ### **What We Offer**
 
 * Easy and fast movie ticket booking
-* Real-time showtime updates
-* Exclusive offers and discounts
 * Seamless payment integration
 * User-friendly interface and smooth navigation
 
