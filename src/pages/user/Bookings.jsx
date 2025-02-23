@@ -1,35 +1,42 @@
-import React, { useState } from 'react';
-import { axiosInstance } from '../../config/axiosInstance';
-import { toast } from 'react-toastify';
+import { useState } from "react";
+import { axiosInstance } from "../../config/axiosInstance";
+import { toast } from "react-toastify";
+import { Loader2 } from "lucide-react";
 
 const Bookings = () => {
-  const [email, setEmail] = useState('');
-  const [status, setStatus] = useState('');
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState("");
   const [sessionData, setSessionData] = useState(null);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setSessionData(null);
-    
+
     if (!email) {
-      toast.warning('Email Id is required');
+      toast.warning("Email Id is required");
       return;
     }
 
+    setLoading(true); // Start loading before making the API call
+
     try {
-        const response = await axiosInstance({
-            method: 'GET',
-            url: `/payment/session-status?email=${email}`,
-          });
-          console.log(response)
+      const response = await axiosInstance({
+        method: "GET",
+        url: `/payment/session-status?email=${email}`,
+      });
+      console.log(response);
+
       setStatus(response.data.status);
       setSessionData(response.data.session_data);
-      toast.success("Fetching Transaction History")
+      toast.success("Fetching Transaction History");
     } catch (err) {
-      setError(err.response?.data?.error || 'An error occurred');
-      toast.error("An error occurred while fetching")
+      setError(err.response?.data?.error || "An error occurred");
+      toast.error("An error occurred while fetching");
+    } finally {
+      setLoading(false); // Stop loading after response/error
     }
   };
 
@@ -44,7 +51,7 @@ const Bookings = () => {
             type="email"
             id="email"
             value={email}
-            placeholder='Enter your Email ID'
+            placeholder="Enter your Email ID"
             onChange={(e) => setEmail(e.target.value)}
             className="mt-1 block w-full px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             required
@@ -58,17 +65,27 @@ const Bookings = () => {
         </button>
       </form>
 
+      {/* Display error message if any */}
       {error && <p className="mt-4 text-red-500">{error}</p>}
 
-      {sessionData && (
+      {/* Display Loading Animation */}
+      {loading && (
+        <div className="flex flex-col items-center mt-6">
+          <Loader2 className="w-16 h-16 text-blue-500 animate-spin" />
+          <p className="text-lg text-gray-700 mt-4">Fetching Transaction History...</p>
+        </div>
+      )}
+
+      {/* Display Transaction Data if Available */}
+      {sessionData && !loading && (
         <div className="mt-6 p-4 bg-gray-400 dark:bg-green-500 text-black rounded-lg">
           <p><strong>Transaction ID:</strong> {sessionData.id}</p>
           <p><strong>Customer Name:</strong> {sessionData.customer_details.name}</p>
           <p><strong>Customer Email:</strong> {sessionData.customer_details.email}</p>
-          <p><strong>Amount Paid: </strong> Rs {sessionData.amount_total/100}</p>
+          <p><strong>Amount Paid:</strong> Rs {sessionData.amount_total / 100}</p>
           <p><strong>Payment Mode:</strong> {sessionData.payment_method_types}</p>
           <p><strong>Payment Status:</strong> {sessionData.payment_status}</p>
-          <p><strong> Booking Status:</strong> {status}</p>
+          <p><strong>Booking Status:</strong> {status}</p>
         </div>
       )}
     </div>
