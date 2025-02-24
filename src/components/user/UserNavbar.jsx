@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 const UserNavbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [mobileMenuOpen,setMobileMenuOpen] =useState(false);
   const [movies, setMovies] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
  
@@ -51,6 +52,10 @@ useEffect(()=>{
     setDropdownOpen(!dropdownOpen);
   };
 
+  const toggleMobileMenu=()=>{
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
+
   const navigate = useNavigate();
 
 
@@ -92,9 +97,16 @@ useEffect(()=>{
           />
         </div>
 
+        <DarKMode/>
+
+          {/* Mobile Menu Button */}
+          <button className="sm:hidden ml-5 text-white focus:outline-none" onClick={toggleMobileMenu}>
+          ☰
+        </button>
+
+
         {/* Navbar Links and Profile Dropdown */}
-        <div className="flex items-center space-x-6">
-          <DarKMode/>
+        <div className="hidden sm:flex items-center space-x-6">
           <Link to ="/user" className="font-semibold hover:text-red-500">Home</Link>
           <Link to ="/movies" className="font-semibold hover:text-red-500">Movies</Link>
           <Link to="/theatres" className="font-semibold hover:text-red-500">Theatres</Link>
@@ -111,7 +123,7 @@ useEffect(()=>{
 
             {/* Dropdown Menu */}
             {dropdownOpen && (
-              <div className="absolute right-0 mt-2 w-48 bg-gray-800 rounded-md shadow-lg z-50">
+              <div className="absolute right mt-2 w-48 bg-gray-800 rounded-md shadow-lg z-50">
                 <Link
                   to="/user/profile" 
                   className="block px-4 py-2 text-white hover:bg-gray-700"
@@ -135,6 +147,48 @@ useEffect(()=>{
           </div>
         </div>
       </div>
+
+
+      {/* Mobile Menu (Shown when toggled) */}
+      {mobileMenuOpen && (
+        <div className="sm:hidden bg-gray-800 text-white p-4">
+           <Link to ="/user" className="block py-2 font-semibold hover:text-red-500">Home</Link>
+          <Link to ="/movies" className="block py-2 font-semibold hover:text-red-500">Movies</Link>
+          <Link to="/theatres" className="block py-2 font-semibold hover:text-red-500">Theatres</Link>
+          <button 
+            onClick={toggleDropdown} 
+            className="block w-full text-left py-2 text-red-500 hover:text-white"
+          >
+            Profile
+          </button>
+          {dropdownOpen && (
+              <div className="absolute left mt-2 w-48 bg-gray-800 rounded-md shadow-lg z-50">
+                <Link
+                  to="/user/profile" 
+                  className="block px-4 py-2 text-white hover:bg-gray-700"
+                >
+                  My Profile
+                </Link>
+                <Link to
+                  ="/user/mybookings" 
+                  className="block px-4 py-2 text-white hover:bg-gray-700"
+                >
+                  Bookings
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="block w-full text-left px-4 py-2 text-white hover:bg-red-600"
+                >
+                  Logout
+                </button>
+              </div>
+            )}
+        </div>
+      )}
+
+
+
+
         {/* Filtered Movie Results */}
         {searchQuery && filteredMovies.length > 0 && (
         <div className="bg-gray-800 text-white py-2 mt-2">
