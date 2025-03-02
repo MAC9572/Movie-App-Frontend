@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { axiosInstance } from '../../config/axiosInstance'
 import CastList from '../../components/user/CastCard'
 import CrewList from '../../components/user/crewCard'
@@ -8,7 +8,6 @@ import { toast } from 'react-toastify'
 const EditMovies = () => {
     const params = useParams();
     const { movieId } = params;
-    const navigate = useNavigate();
   
     const [movieDetails, setMovieDetails] = useState({});
     const [isEditing, setIsEditing] = useState(false); // To track whether the user is editing
