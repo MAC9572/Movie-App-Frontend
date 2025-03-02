@@ -6,15 +6,15 @@ import { toast } from 'react-toastify';
 const AdminDashboard = () => {
   const { register, handleSubmit, control, formState: { errors }, setValue } = useForm();
   
-  const { fields: castFields, append: appendCast, remove: removeCast } = useFieldArray({
-    control,
-    name: 'cast',
-  });
+  // const { fields: castFields, append: appendCast, remove: removeCast } = useFieldArray({
+  //   control,
+  //   name: 'cast',
+  // });
 
-  const { fields: crewFields, append: appendCrew, remove: removeCrew } = useFieldArray({
-    control,
-    name: 'crew',
-  });
+  // const { fields: crewFields, append: appendCrew, remove: removeCrew } = useFieldArray({
+  //   control,
+  //   name: 'crew',
+  // });
 
   const [loading, setLoading] = useState(false);
 
@@ -35,14 +35,14 @@ const AdminDashboard = () => {
   
       // Handling Cast and Crew
 
-      data.cast.forEach((castMember, index) => {
-        formData.append(`cast[${index}].original_name`, castMember.original_name);
-        formData.append(`cast[${index}].character`, castMember.character);
-      });
-      data.crew.forEach((crewMember, index) => {
-        formData.append(`crew[${index}].name`, crewMember.name);
-        formData.append(`crew[${index}].crew_position`, crewMember.crew_position);
-      });
+      // data.cast.forEach((castMember, index) => {
+      //   formData.append(`cast[${index}].original_name`, castMember.original_name);
+      //   formData.append(`cast[${index}].character`, castMember.character);
+      // });
+      // data.crew.forEach((crewMember, index) => {
+      //   formData.append(`crew[${index}].name`, crewMember.name);
+      //   formData.append(`crew[${index}].crew_position`, crewMember.crew_position);
+      // });
       formData.append("movie_image", data.movie_image[0]);
       
       // Sending data to backend using axiosInstance
@@ -54,14 +54,14 @@ const AdminDashboard = () => {
       console.log(response);
   
       toast.success('Movie added successfully');
-      // // Reset form
-      // setValue('title', '');
-      // setValue('description', '');
-      // setValue('movie_grade', '');
-      // setValue('languages', '');
-      // setValue('duration', '');
-      // setValue('genre', '');
-      // setValue('movie_image', null);
+      // Reset form
+      setValue('title', '');
+      setValue('description', '');
+      setValue('movie_grade', '');
+      setValue('languages', '');
+      setValue('duration', '');
+      setValue('genre', '');
+      setValue('movie_image', null);
   
     } catch (err) {
       console.log(err);
@@ -78,7 +78,7 @@ const AdminDashboard = () => {
         <div className="bg-gray-800 dark:bg-white text-white dark:text-black p-6 rounded-lg shadow-lg flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-semibold">Total Movies</h2>
-            <p className="text-xl text-gray-500"> 6 </p>
+            <p className="text-xl text-gray-500"> 10 </p>
           </div>
           <span className="text-4xl text-blue-500">🎬</span>
         </div>
@@ -151,8 +151,9 @@ const AdminDashboard = () => {
             {errors.genre && <p className="text-red-500">{errors.genre.message}</p>}
           </div>
 
-          {/* Cast */}
-          <div className="mb-4">
+          
+          {/* Crew */}
+          {/* <div className="mb-4">
             <label className="block text-sm font-semibold">Cast</label>
             {castFields.map((item, index) => (
               <div key={item._id} className="mb-4 flex items-center">
@@ -184,10 +185,10 @@ const AdminDashboard = () => {
             >
               Add Cast
             </button>
-          </div>
+          </div>  */}
 
           {/* Crew */}
-          <div className="mb-4">
+          {/* <div className="mb-4">
             <label className="block text-sm font-semibold">Crew</label>
             {crewFields.map((item, index) => (
               <div key={item._id} className="mb-4 flex items-center">
@@ -219,7 +220,7 @@ const AdminDashboard = () => {
             >
               Add Crew
             </button>
-          </div>
+          </div> */}
 
           {/* Movie Image */}
           <div className="mb-4">

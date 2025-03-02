@@ -85,6 +85,12 @@ const AdminNavbar =()=>{
                 >
                   Dashboard
                 </Link>
+                <Link to
+                  ="/admin/bookings" 
+                  className="block px-4 py-2 text-white hover:bg-gray-700"
+                >
+                  Bookings
+                </Link>
                 <button
                   onClick={handleLogout}
                   className="w-full text-left px-4 py-2 text-white hover:bg-red-600"
@@ -95,7 +101,7 @@ const AdminNavbar =()=>{
             )}
           </div>
     </div>
-
+<DarKMode/>
     
     {/* <!-- Admin Profile Section --> */}
     <div className="flex items-center space-x-4">
@@ -132,6 +138,12 @@ const AdminNavbar =()=>{
                   className="block px-4 py-2 text-white hover:bg-gray-700"
                 >
                   Dashboard
+                </Link>
+                <Link to
+                  ="/admin/bookings" 
+                  className="block px-4 py-2 text-white hover:bg-gray-700"
+                >
+                  Bookings
                 </Link>
                 <button
                   onClick={handleLogout}

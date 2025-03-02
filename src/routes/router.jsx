@@ -23,6 +23,8 @@ import PaymentFailure from "../pages/user/PaymentFailure";
 import Showtime from "../pages/admin/Showtime";
 import Bookings from "../pages/user/Bookings";
 import AdminMovies from "../pages/admin/AdminMovies.jsx";
+import BookingDetails from "../pages/admin/BookingDetails.jsx";
+import EditMovies from "../pages/admin/EditMovies.jsx";
 
 
 export const router = createBrowserRouter([
@@ -64,7 +66,7 @@ export const router = createBrowserRouter([
                 element: <TheaterList/>,
             },
             {
-                path: "showtime/:screenId",
+                path: "showtime",
                 element: <MovieSchedule/>,
             },
             {
@@ -125,6 +127,10 @@ export const router = createBrowserRouter([
             element: <Login role="admin" />,
           },
           {
+            path: "movieDetails/:movieId",
+            element: <EditMovies/>,
+        },
+          {
             element: <ProtectedRouteAdmin />,
             children: [
               {
@@ -142,6 +148,10 @@ export const router = createBrowserRouter([
               {
                 path: "movies",
                 element: <AdminMovies role ="admin"/>,
+            },
+            {
+                path: "bookings",
+                element: <BookingDetails/>,
             },
             {
                 path : "showtimes",
