@@ -1,12 +1,10 @@
 import React, { useState,useEffect } from 'react';
 import { axiosInstance } from '../../config/axiosInstance';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 
 
 const MovieSchedule = () => {
-  const params =useParams()
-  const {screenId} =params;
-  console.log('params =', screenId)
+  
 
 
   const [movieData, setMovieData] = useState([]);
@@ -16,7 +14,7 @@ const fetchtheatres =async()=>{
   try{
   const response = await axiosInstance({
     method :"GET",
-    url : `/schedules/get-schedule/${screenId}`
+    url : 'schedules/get-schedule'
   })
   console.log(response)
   setMovieData(response?.data?.data);

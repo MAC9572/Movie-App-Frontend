@@ -82,14 +82,14 @@ const Screen = () => {
   }
 
   return (
-    <div className="max-w-6xl mx-auto py-8">
+    <div className="w-full max-w-6xl mx-auto py-8 px-4">
       <h2 className="text-2xl font-bold text-center mb-2">{screenData.name}</h2>
       <p className="text-center text-gray-600 mb-2">{screenData.screenType}</p>
       <p className="text-center text-gray-600 mb-6">{screenData.location}, {screenData.city}</p>
       <p className="text-center font-semibold text-xl mb-6">Price : {screenData.price}</p>
       <div className="flex flex-col items-center">
         {screenData.seats.map((row, rowIndex) => (
-          <div key={rowIndex} className="flex mb-4">
+          <div key={rowIndex} className="flex flex-wrap justify-center mb-4">
             {row.map((seat, seatIndex) => (
               <button
                 key={seatIndex}
@@ -121,12 +121,13 @@ const Screen = () => {
           Add to Cart
         </button>
         <button
-          onClick={()=>navigate("/user/cart")}
+          onClick={() => navigate("/user/cart")}
           className="mt-4 ml-6 px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
         >
           Book Ticket
         </button>
       </div>
+    
 
       {/* <div className="mt-6 text-center">
         <h3 className="text-lg font-semibold">Cart</h3>
