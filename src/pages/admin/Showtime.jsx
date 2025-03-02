@@ -14,7 +14,6 @@ const Showtime = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedMovie, setEditedMovie] = useState(null);
 
-  useEffect(() => {
     const fetchTheatres = async () => {
       try {
         const response = await axiosInstance({
@@ -26,6 +25,8 @@ const Showtime = () => {
         console.error('Error fetching movies:', error);
       }
     };
+
+    useEffect(() => {
     fetchTheatres();
   }, []);
 
