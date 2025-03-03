@@ -3,32 +3,41 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { axiosInstance } from '../../config/axiosInstance'
 import CastList from '../../components/user/CastCard'
 import CrewList from '../../components/user/crewCard'
+import { useFetch } from '../../hooks/useFetch'
+import { Loader } from 'lucide-react'
+
+
 
 const MovieDetails=()=> {
   const params =useParams()
   const {movieId} =params;
   console.log('params =', movieId)
 
-  const[movieDetails, setMovieDetails]=useState([{}])
+    const [movieDetails, isLoading, error] = useFetch(`/movies/show-movieDetails/${movieId}`);
   const navigate =useNavigate()
 
-  const fetchMovieDetails =async()=>{
-    try {
-      const response = await axiosInstance({
-        method :"GET",
-        url    :`/movies/show-movieDetails/${movieId}`
-      })
-      console.log(response)
-      setMovieDetails(response?.data?.data)
-    }catch(error){
-     console.log(error)
-    }
-  };
+  // const fetchMovieDetails =async()=>{
+  //   try {
+  //     const response = await axiosInstance({
+  //       method :"GET",
+  //       url    :`/movies/show-movieDetails/${movieId}`
+  //     })
+  //     console.log(response)
+  //     setMovieDetails(response?.data?.data)
+  //   }catch(error){
+  //    console.log(error)
+  //   }
+  // };
 
-  useEffect (()=>{
-    fetchMovieDetails()
-  },[])
+  // useEffect (()=>{
+  //   fetchMovieDetails()
+  // },[])
   
+  if (isLoading) return <>
+  <div className="flex items-center justify-center h-screen">
+  <Loader className="w-16 h-16 text-blue-500 animate-spin" />
+  </div> </>;
+  if (error) return <p>Error: {error.message}</p>;
 
 
   return (
