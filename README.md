@@ -47,7 +47,7 @@ Stripe : Used as a Payment Gateway to book tickets
 ***
 ## FooterPage
 
-![image](https://github.com/user-attachments/assets/ea219072-8422-451a-846c-c4c27c79542d)
+![image](https://github.com/user-attachments/assets/d8ff9e87-31a5-48cb-977c-a1d16dcc9f97)
 
 ***
 ## Movies Page
