@@ -11,7 +11,7 @@ Welcome to [MoviesBay](https://movie-app-frontend-ashy.vercel.app/), your ultima
 ***
 # Tech Stack Used:
 
-I have Used Reactjs, Redux, Tailwind CSS, HTML, JavaScript, Stripe, Routers, Nodejs Express, NPM packages, Cloudinary, MongoDb Atlas realtime storage for building this Project. Also used tools like GitHub for collaboration of our project, Slack & Zoom as means of a communication channel.
+I have Used Reactjs, Redux, Tailwind CSS, HTML, JavaScript, Stripe, Routers, Nodejs Express, NPM packages, Cloudinary, MongoDb Atlas realtime storage for building this Project. Also used tools like GitHub for collaboration of my project, Slack & Zoom as means of a communication channel.
 
 ***
 
