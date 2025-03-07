@@ -18,7 +18,7 @@ export const FooterPage = () => {
 
         <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
             <div>
-                <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">MOVIES BY GENRE</h2>
+                <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">MOVIES BY LANGUAGE</h2>
                 <ul class="text-gray-600 dark:text-gray-400">
                     <li class="mb-4">
                         <Link to="/movies" target="_blank" rel="noreferrer" class="hover:underline">Movies in Hindi</Link>
