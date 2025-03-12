@@ -25,6 +25,7 @@ import Bookings from "../pages/user/Bookings";
 import AdminMovies from "../pages/admin/AdminMovies.jsx";
 import BookingDetails from "../pages/admin/BookingDetails.jsx";
 import EditMovies from "../pages/admin/EditMovies.jsx";
+import TicketDetails from "../pages/user/TicketDetails.jsx";
 
 
 export const router = createBrowserRouter([
@@ -95,6 +96,10 @@ export const router = createBrowserRouter([
                     },
                     {
                         path: "mybookings",
+                        element: <TicketDetails/>
+                    },
+                    {
+                        path: "payments",
                         element: <Bookings/>
                     },
                     {

@@ -110,6 +110,8 @@ useEffect(()=>{
           <Link to ="/user" className="font-semibold hover:text-red-500">Home</Link>
           <Link to ="/movies" className="font-semibold hover:text-red-500">Movies</Link>
           <Link to="/theatres" className="font-semibold hover:text-red-500">Theatres</Link>
+          <Link to="/user/mybookings" className="font-semibold hover:text-red-500">Bookings</Link>
+
           
           {/* Profile Dropdown */}
           <div className="relative">
@@ -123,7 +125,7 @@ useEffect(()=>{
 
             {/* Dropdown Menu */}
             {dropdownOpen && (
-              <div className="absolute right mt-2 w-48 bg-gray-800 rounded-md shadow-lg z-50">
+              <div className="absolute right-2 mt-2 w-48 bg-gray-800 rounded-md shadow-lg z-50">
                 <Link
                   to="/user/profile" 
                   className="block px-4 py-2 text-white hover:bg-gray-700"
@@ -131,10 +133,10 @@ useEffect(()=>{
                   My Profile
                 </Link>
                 <Link to
-                  ="/user/mybookings" 
+                  ="/user/payments" 
                   className="block px-4 py-2 text-white hover:bg-gray-700"
                 >
-                  Bookings
+                  My Transactions
                 </Link>
                 <button
                   onClick={handleLogout}
@@ -155,6 +157,7 @@ useEffect(()=>{
            <Link to ="/user" className="block py-2 font-semibold hover:text-red-500">Home</Link>
           <Link to ="/movies" className="block py-2 font-semibold hover:text-red-500">Movies</Link>
           <Link to="/theatres" className="block py-2 font-semibold hover:text-red-500">Theatres</Link>
+          <Link to="/user/mybookings" className="block py-2 font-semibold hover:text-red-500">Bookings</Link>
           <button 
             onClick={toggleDropdown} 
             className="block w-full text-left py-2 text-red-500 hover:text-white"
@@ -170,10 +173,10 @@ useEffect(()=>{
                   My Profile
                 </Link>
                 <Link to
-                  ="/user/mybookings" 
+                  ="/user/payments" 
                   className="block px-4 py-2 text-white hover:bg-gray-700"
                 >
-                  Bookings
+                  My Transactions
                 </Link>
                 <button
                   onClick={handleLogout}

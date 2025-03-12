@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { axiosInstance } from '../../config/axiosInstance';
-import { useParams } from 'react-router-dom';
+import {useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
@@ -45,14 +45,16 @@ const Showtime = () => {
         url: `/schedules/update-schedule/${scheduleId}`,
         data: editedMovie,
       });
+      setIsEditing(false);
       toast.success('Showtime Updated Successfully')
         console.log('Schedule updated successfully:', response.data);
-        // setMovieData(prevData =>
-        //   prevData.map((movie) =>
-        //     movie._id === scheduleId ? { ...movie, ...editedMovie } : movie
-        //   )
-        // );
-        setIsEditing(false);
+       
+        // Optimistic update to reflect changes immediately in the UI
+    setMovieData(prevData =>
+      prevData.map((movie) =>
+        movie._id === editedMovie._id ? { ...movie, ...editedMovie } : movie
+      )
+    );
     } catch (error) {
       toast.error('Something went wrong.')
       console.error('Error saving movie changes:', error);
@@ -71,7 +73,13 @@ const Showtime = () => {
         url: "/schedules/add-schedule",
         data,
       });
+      console.log(response)
       toast.success(response.data.message);
+      // Optimistically add the new schedule to the movieData array
+    setMovieData(prevData => [
+      ...prevData,  // Spread the existing movieData
+      response.data.data,  // Add the new schedule from the API response
+    ]);
     } catch (error) {
       console.error(error);
       toast.error("Error creating movie schedule");

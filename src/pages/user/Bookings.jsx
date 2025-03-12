@@ -4,7 +4,6 @@ import { toast } from "react-toastify";
 import { Loader2 } from "lucide-react";
 
 const Bookings = () => {
-  const [email, setEmail] = useState("");
   const [status, setStatus] = useState("");
   const [sessionData, setSessionData] = useState(null);
   const [error, setError] = useState("");
@@ -15,17 +14,12 @@ const Bookings = () => {
     setError("");
     setSessionData(null);
 
-    if (!email) {
-      toast.warning("Email Id is required");
-      return;
-    }
-
     setLoading(true); // Start loading before making the API call
 
     try {
       const response = await axiosInstance({
         method: "GET",
-        url: `/payment/session-status?email=${email}`,
+        url: `/payment/session-status`, // Remove the email parameter
       });
       console.log(response);
 
@@ -44,19 +38,8 @@ const Bookings = () => {
     <div className="max-w-2xl mx-auto p-6 bg-gray-200 dark:bg-gray-700 shadow-md rounded-lg mt-10 mb-10">
       <h1 className="text-2xl font-bold mb-4 text-center">Transaction History</h1>
 
+      {/* Button to trigger transaction fetch */}
       <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label htmlFor="email" className="block text-sm font-medium">Email ID</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            placeholder="Enter your Email ID"
-            onChange={(e) => setEmail(e.target.value)}
-            className="mt-1 block w-full px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            required
-          />
-        </div>
         <button
           type="submit"
           className="w-full px-4 py-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"

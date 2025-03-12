@@ -12,7 +12,7 @@ const Screen = () => {
   const fetchScreenData = async () => {
     try {
       const response = await axiosInstance({
-        method: "GET",
+        method: 'GET',
         url: '/screen/get-screen'
       });
       console.log(response);
@@ -42,10 +42,9 @@ const Screen = () => {
 
   // Add to cart functionality with POST request
   const addToCart = async () => {
-    if (selectedSeats.length > 0 ) {
+    if (selectedSeats.length > 0) {
       try {
         const cartData = {
-          userId: 'userId', // You should pass the user's ID here
           seats: selectedSeats,
           totalPrice: totalPrice,
         };
@@ -116,7 +115,7 @@ const Screen = () => {
 
         <button
           onClick={addToCart}
-          className="mt-4 px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-green-600"
+          className="mt-4 px-6 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600"
         >
           Add to Cart
         </button>
