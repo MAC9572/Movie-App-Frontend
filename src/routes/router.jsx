@@ -26,6 +26,8 @@ import AdminMovies from "../pages/admin/AdminMovies.jsx";
 import BookingDetails from "../pages/admin/BookingDetails.jsx";
 import EditMovies from "../pages/admin/EditMovies.jsx";
 import TicketDetails from "../pages/user/TicketDetails.jsx";
+import AddScreen from "../pages/admin/AddScreen.jsx";
+import ScreenDetails from "../pages/admin/ScreenDetails.jsx";
 
 
 export const router = createBrowserRouter([
@@ -59,16 +61,16 @@ export const router = createBrowserRouter([
                 element: <MovieDetails/>,
             },
             {
-                path: "screens/",
-                element: <Screen/>,
-            },
-            {
                 path: "theatres",
                 element: <TheaterList/>,
             },
             {
                 path: "showtime",
                 element: <MovieSchedule/>,
+            },
+            {
+                path: "screens",
+                element: <Screen/>,
             },
             {
                 element: <ProtectedRoute/>,
@@ -81,14 +83,14 @@ export const router = createBrowserRouter([
                     {
                         path: "profile",
                         element: <Profile/>,
+                    },        
+                    {
+                        path: "theatres",
+                        element: <TheaterList/>,
                     },
                     {
                         path: "screens",
                         element: <Screen/>,
-                    },
-                    {
-                        path: "theatres",
-                        element: <TheaterList/>,
                     },
                     {
                         path: "cart",
@@ -135,6 +137,7 @@ export const router = createBrowserRouter([
             path: "movieDetails/:movieId",
             element: <EditMovies/>,
         },
+        
           {
             element: <ProtectedRouteAdmin />,
             children: [
@@ -158,6 +161,14 @@ export const router = createBrowserRouter([
                 path: "bookings",
                 element: <BookingDetails/>,
             },
+           {
+            path: "theatres",
+            element: <AddScreen role ="admin"/>,
+        },
+         {
+            path: "screens",
+             element: <ScreenDetails/>,
+             },
             {
                 path : "showtimes",
                 element :<Showtime role ="admin"/>

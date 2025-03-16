@@ -1,19 +1,18 @@
 import { useEffect, useState } from 'react';
 import { axiosInstance } from '../../config/axiosInstance';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { Loader2 } from 'lucide-react';
 
-const Screen = () => {
+
+const ScreenDetails = () => {
   const [screenData, setScreenData] = useState(null);
   const [selectedSeats, setSelectedSeats] = useState([]);
-  const navigate =useNavigate()
 
   // Fetch screen data from the API
   const fetchScreenData = async () => {
     try {
       const response = await axiosInstance({
         method: 'GET',
-        url: '/screen/get-screen'
+        url: '/screen/get-screenById'
       });
       console.log(response);
       if (response?.data?.data && response.data.data.length > 0) {
@@ -40,50 +39,18 @@ const Screen = () => {
   // Calculate total price
   const totalPrice = selectedSeats.length * (screenData?.price || 0);
 
-  // Add to cart functionality with POST request
-  const addToCart = async () => {
-    if (selectedSeats.length > 0) {
-      try {
-        const cartData = {
-          seats: selectedSeats,
-          totalPrice: totalPrice,
-        };
-
-        const response = await axiosInstance({
-          method: "POST",
-          url: '/cart/add-to-cart', // Backend route for adding to the cart
-          data: cartData,
-        });
-        console.log(response)
-        if (response?.data?.items) {
-          // setCart(response?.data?.items); // Update the cart state with the new cart data
-          // alert(`Added to cart. Total: ${totalPrice}`);
-          toast.success(`Seat ${selectedSeats} has been added to cart.`)
-          
-        }
-        
-        // Reset selected seats after adding to the cart
-        // setSelectedSeats([]);
-      } catch (error) {
-        console.error('Error adding to cart:', error);
-        // alert('There was an error adding to the cart.');
-        toast.error('There was an error adding to the cart.')
-
-      }
-    } else {
-      // alert('No seats selected!');
-      toast.error('No seats selected!')
-    }
-  };
-
   if (!screenData) {
-    return <div>Loading...</div>;
+    return <div className="flex flex-col items-center mt-6">
+    <Loader2 className="w-16 h-16 text-blue-500 animate-spin" />
+    <p className="mt-2 text-lg">Loading...</p>
+  </div>
   }
+   
 
   return (
     <div className="w-full max-w-6xl mx-auto py-8 px-4">
-      {/* <h2 className="text-2xl font-bold text-center mb-2">{screenData.name}</h2>
-      <p className="text-center text-gray-600 mb-6">{screenData.location}, {screenData.city}</p> */}
+      <h2 className="text-2xl font-bold text-center mb-2">{screenData.name}</h2>
+      <p className="text-center text-gray-600 mb-6">{screenData.location}, {screenData.city}</p>
       <h2 className="text-center text-xl font-bold text-gray-600 mb-2">{screenData.screenType}</h2>
       <p className="text-center font-semibold text-xl mb-6">Price : {screenData.price}</p>
       <div className="flex flex-col items-center">
@@ -112,19 +79,6 @@ const Screen = () => {
           {selectedSeats.length === 0 ? 'No seats selected' : selectedSeats.join(', ')}
         </p>
         <p className="text-xl font-semibold mt-2">Total Price: {totalPrice}</p>
-
-        <button
-          onClick={addToCart}
-          className="mt-4 px-6 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600"
-        >
-          Add to Cart
-        </button>
-        <button
-          onClick={() => navigate("/user/cart")}
-          className="mt-4 ml-6 px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
-        >
-          Book Ticket
-        </button>
       </div>
     
 
@@ -145,4 +99,4 @@ const Screen = () => {
   );
 };
 
-export default Screen;
+export default ScreenDetails;

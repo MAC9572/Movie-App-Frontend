@@ -58,6 +58,7 @@ const AdminNavbar =()=>{
     <div className="hidden sm:flex items-center space-x-6">
       <Link to ="/admin" class="hover:bg-gray-700 px-4 py-2 rounded-md">Home</Link>
       <Link to="/admin/movies" class="hover:bg-gray-700 px-4 py-2 rounded-md">Movies</Link>
+      <Link to="/admin/theatres" className="hover:bg-gray-700 px-4 py-2 rounded-md">Theatres</Link>
       <Link to="/admin/showtimes" class="hover:bg-gray-700 px-4 py-2 rounded-md">Showtimes</Link>
       <Link to="/admin/registeredusers" class="hover:bg-gray-700 px-4 py-2 rounded-md">Users</Link>
          {/* Profile Dropdown */}
@@ -117,6 +118,7 @@ const AdminNavbar =()=>{
         <div className="sm:hidden bg-gray-800 text-white p-4">
           <Link to ="/admin" className="block hover:bg-gray-700 px-4 py-2 rounded-md">Home</Link>
          <Link to="/admin/movies" className="block hover:bg-gray-700 px-4 py-2 rounded-md">Movies</Link>
+         <Link to="/admin/theatres" className="block hover:bg-gray-700 px-4 py-2 rounded-md">Theatres</Link>
          <Link to="/admin/showtimes" className="block hover:bg-gray-700 px-4 py-2 rounded-md">Showtimes</Link>
          <Link to="/admin/registeredusers" className="block hover:bg-gray-700 px-4 py-2 rounded-md">Users</Link>
           <button 
