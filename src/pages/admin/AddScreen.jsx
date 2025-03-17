@@ -203,7 +203,7 @@ const AddScreen = () => {
             </form>
         </div>
         <div className="container mx-auto p-4">
-            <h1 className="text-2xl font-bold mt-4 mb-4 text-blue-600">Screens Details</h1>
+            <h1 className="text-2xl font-bold mt-4 mb-4 text-blue-600">Screen Details</h1>
             {screens.length === 0 ? (
                 <div className="text-center">No screens found for this admin.</div>
             ) : (
