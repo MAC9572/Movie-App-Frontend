@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { axiosInstance } from '../../config/axiosInstance';
-import TheatreCard from '../../components/shared/TheatreCard';
+import { TheatreCard } from '../../components/shared/TheatreCard';
+import MovieSchedule from './MovieSchedule';
+
 
 const TheatreList = () => {
   const [theatres, setTheatres] = useState([]);

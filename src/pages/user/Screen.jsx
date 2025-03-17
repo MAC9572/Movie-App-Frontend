@@ -1,23 +1,27 @@
 import { useEffect, useState } from 'react';
 import { axiosInstance } from '../../config/axiosInstance';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
+
 
 const Screen = () => {
   const [screenData, setScreenData] = useState(null);
   const [selectedSeats, setSelectedSeats] = useState([]);
   const navigate =useNavigate()
+  const params =useParams()
+  const {screenId} =params;
+  console.log('params =', screenId)
 
   // Fetch screen data from the API
   const fetchScreenData = async () => {
     try {
       const response = await axiosInstance({
         method: 'GET',
-        url: '/screen/get-screen'
+        url: `/screen/get-screenById/${screenId}`
       });
       console.log(response);
-      if (response?.data?.data && response.data.data.length > 0) {
-        setScreenData(response.data.data[0]);
+      if (response?.data?.data) {
+        setScreenData(response.data.data);
       }
     } catch (error) {
       console.error('Error fetching screen:', error);
@@ -82,8 +86,8 @@ const Screen = () => {
 
   return (
     <div className="w-full max-w-6xl mx-auto py-8 px-4">
-      {/* <h2 className="text-2xl font-bold text-center mb-2">{screenData.name}</h2>
-      <p className="text-center text-gray-600 mb-6">{screenData.location}, {screenData.city}</p> */}
+      <h2 className="text-2xl font-bold text-center mb-2">{screenData.name}</h2>
+      <p className="text-center text-gray-600 mb-6">{screenData.location}, {screenData.city}</p>
       <h2 className="text-center text-xl font-bold text-gray-600 mb-2">{screenData.screenType}</h2>
       <p className="text-center font-semibold text-xl mb-6">Price : {screenData.price}</p>
       <div className="flex flex-col items-center">

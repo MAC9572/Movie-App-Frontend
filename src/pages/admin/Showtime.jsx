@@ -18,8 +18,9 @@ const Showtime = () => {
       try {
         const response = await axiosInstance({
           method: "GET",
-          url: '/schedules/get-schedule',
+          url: '/schedules/get-scheduleByAdmin',
         });
+        console.log(response)
         setMovieData(response?.data?.data || []);
       } catch (error) {
         console.error('Error fetching movies:', error);

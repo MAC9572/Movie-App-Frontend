@@ -65,11 +65,11 @@ export const router = createBrowserRouter([
                 element: <TheaterList/>,
             },
             {
-                path: "showtime",
+                path: "showtime/:screenId",
                 element: <MovieSchedule/>,
             },
             {
-                path: "screens",
+                path: "screens/:screenId",
                 element: <Screen/>,
             },
             {
@@ -89,7 +89,7 @@ export const router = createBrowserRouter([
                         element: <TheaterList/>,
                     },
                     {
-                        path: "screens",
+                        path: "screens/:screenId",
                         element: <Screen/>,
                     },
                     {
@@ -99,6 +99,10 @@ export const router = createBrowserRouter([
                     {
                         path: "mybookings",
                         element: <TicketDetails/>
+                    },
+                    {
+                        path: "showtime/:screenId",
+                        element: <MovieSchedule/>,
                     },
                     {
                         path: "payments",

@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { axiosInstance } from '../../config/axiosInstance';
-import { useNavigate} from 'react-router-dom';
+import { useNavigate, useParams} from 'react-router-dom';
+
 
 const MovieSchedule = () => {
   const [movieData, setMovieData] = useState([]);
   const navigate = useNavigate();
+  const params =useParams()
+  const {screenId} =params;
+  console.log('params =', screenId)
 
   const fetchtheatres = async () => {
     try {
       const response = await axiosInstance({
         method: "GET",
-        url: 'schedules/get-schedule',
+        url: `schedules/get-scheduleById/${screenId}`,
       });
       console.log(response);
       setMovieData(response?.data?.data);
@@ -66,16 +70,15 @@ const MovieSchedule = () => {
                   </button>
                 </div>
               </div>
-
               {/* Book Tickets Button */}
-              <button
-                onClick={() => navigate('/screens')}
+                <button
+                onClick={() => navigate(`/screens/${movie.screenId._id}`)}
                 className="mt-6 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-200"
               >
                 Book Tickets
               </button>
+              </div>
             </div>
-          </div>
         ))}
       </div>
     </div>
